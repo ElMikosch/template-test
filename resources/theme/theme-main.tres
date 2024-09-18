@@ -1,0 +1,28 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://ducfept6pmkkm"]
+
+[ext_resource type="FontFile" uid="uid://cs7mu1roq5nso" path="res://assets/fonts/Lambda-Regular.ttf" id="1_66wse"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ibcqr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e8833"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cmsro"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1sk8v"]
+
+[resource]
+default_font = ExtResource("1_66wse")
+default_font_size = 20
+Button/colors/font_focus_color = Color(0.94902, 0.94902, 0, 1)
+Button/colors/font_hover_color = Color(0.94902, 0.94902, 0, 1)
+Button/font_sizes/font_size = 80
+Button/styles/focus = SubResource("StyleBoxEmpty_ibcqr")
+Button/styles/hover = SubResource("StyleBoxEmpty_e8833")
+Button/styles/normal = SubResource("StyleBoxEmpty_cmsro")
+Button/styles/pressed = SubResource("StyleBoxEmpty_1sk8v")
+LabelSmall/base_type = &"Label"
+LabelSmall/font_sizes/font_size = 16
+MarginContainer/constants/margin_bottom = 32
+MarginContainer/constants/margin_left = 32
+MarginContainer/constants/margin_right = 32
+MarginContainer/constants/margin_top = 32

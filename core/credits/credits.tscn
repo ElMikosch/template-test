@@ -1,0 +1,148 @@
+[gd_scene load_steps=8 format=3 uid="uid://t2dui8ppm3a4"]
+
+[ext_resource type="Shader" path="res://shaders/scroll.gdshader" id="2_kccla"]
+[ext_resource type="Texture2D" uid="uid://d18eykk6qjf22" path="res://assets/sprites/pattern_0011.png" id="3_i2a17"]
+[ext_resource type="Script" path="res://core/credits/credits.gd" id="4"]
+[ext_resource type="Shader" path="res://shaders/blur.gdshader" id="4_l8xeu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_skhmu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w4m65"]
+shader = ExtResource("2_kccla")
+shader_parameter/speed = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sesxi"]
+shader = ExtResource("4_l8xeu")
+shader_parameter/lod = 3.0
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4")
+h1_font_size = 128
+h2_font_size = 96
+h3_font_size = 64
+h4_font_size = 32
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_skhmu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.796078, 0.65098, 0.968627, 1)
+material = SubResource("ShaderMaterial_w4m65")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_i2a17")
+expand_mode = 3
+stretch_mode = 1
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 0.607843)
+
+[node name="Blur" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_sesxi")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_vertical = 100
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HeaderSpace" type="Control" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 1080)
+layout_mode = 2
+
+[node name="CreditsLabel" type="RichTextLabel" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1920, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_font_sizes/normal_font_size = 44
+bbcode_enabled = true
+text = "[center]
+[font_size=128]Hackeroni Game Template[/font_size]
+
+Created by [url=https://ldjam.com/users/ganjalf]Ganjalf[/url], [url=https://ldjam.com/users/koopadek]Koopadek[/url] and [url=https://ldjam.com/users/elmikosch]ElMikosch[/url] in 72 Hours for Ludum Dare XX
+
+[font_size=96]Attributions[/font_size]
+
+[font_size=64]Assets[/font_size]
+
+Lambda Font by [url=https://www.dafont.com/lambda.font]GGBot[/url]
+Pattern Pack 2 by [url=https://kenney.nl/assets/pattern-pack-2]Kenney[/url]
+Interface Bleeps by [url=https://bleeoop.itch.io/interface-bleeps]Bleeoop[/url]
+Menu Sounds by [url=https://moludar.itch.io/menu-sounds-archive]Moludar[/url]
+[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="FooterSpace" type="Control" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 1080)
+layout_mode = 2
+
+[node name="ScrollResetTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -304.0
+offset_bottom = 28.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Press ESC to return to Main Menu"
+
+[connection signal="gui_input" from="ScrollContainer" to="." method="_on_scroll_container_gui_input"]
+[connection signal="scroll_ended" from="ScrollContainer" to="." method="_on_ScrollContainer_scroll_ended"]
+[connection signal="scroll_started" from="ScrollContainer" to="." method="_on_scroll_container_scroll_started"]
+[connection signal="meta_clicked" from="ScrollContainer/VBoxContainer/CreditsLabel" to="." method="_on_CreditsLabel_meta_clicked"]
+[connection signal="timeout" from="ScrollResetTimer" to="." method="_on_scroll_reset_timer_timeout"]
